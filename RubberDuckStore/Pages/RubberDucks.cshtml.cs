@@ -12,15 +12,19 @@ namespace RubberDuckStore.Pages
         // Property that will store the selected duck ID from form submissions
         [BindProperty]
         public int SelectedDuckId { get; set; }
+
         // List that will hold all ducks for the dropdown selection
         public List<SelectListItem> DuckList { get; set; }
+        
         // Property that will store the currently selected duck object
         public Duck SelectedDuck { get; set; }
+
         // Handles HTTP GET requests to the page - loads the list of ducks
         public void OnGet()
         {
             LoadDuckList();
         }
+
         // Handles HTTP POST requests (when user selects a duck) - loads the duck list
         // and retrieves the selected duck's details
         public IActionResult OnPost()
@@ -32,6 +36,7 @@ namespace RubberDuckStore.Pages
             }
             return Page();
         }
+
         // Helper method that loads the list of ducks from the SQLite database
         // for displaying in a dropdown menu
         private void LoadDuckList()
@@ -51,10 +56,11 @@ namespace RubberDuckStore.Pages
                             Value = reader.GetInt32(0).ToString(), // Duck ID as the value
                             Text = reader.GetString(1)             // Duck name as the display text
                         });
-                    }
-                }
-            }
-        }
+                    } // end while
+                } // end using
+            } // end using
+        } // end LoadDuckList
+
         // Helper method that retrieves a specific duck by its ID from the database
         // Returns all details of the duck
         private Duck GetDuckById(int id)
